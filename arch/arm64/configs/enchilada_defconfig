@@ -882,3 +882,5 @@ CONFIG_XZ_DEC_BCJ=y
 
 # Fix can't wake up after sleep
 #CONFIG_PM_AUTOSLEEP=y 
+
+CONFIG_BOEFFLA_WL_BLOCKER=y

@@ -16,20 +16,11 @@
 #include <linux/debugfs.h>
 #include <linux/pm_wakeirq.h>
 #include <linux/types.h>
-
-#include <linux/moduleparam.h>
-
 #include <trace/events/power.h>
 #include <linux/irq.h>
 #include <linux/irqdesc.h>
 
 #include "power.h"
-
-/* include <linux/types.h>
- * and 2 lines below are
- * for fixing battery drains */
-static bool enable_ipa_ws = false;
-module_param(enable_ipa_ws, bool, 0644);
 
 /*
  * If set, the suspend/hibernate code will abort transitions to a sleep state
@@ -535,13 +526,6 @@ static void wakeup_source_activate(struct wakeup_source *ws)
 {
 	unsigned int cec;
 
-	/* Fix for battery drains https://review.lineageos.org/c/LineageOS/android_kernel_motorola_msm8952/+/156126/1 */
-	if (!enable_ipa_ws && !strncmp(ws->name, "IPA_WS", 6)) {
-		if (ws->active)
-			wakeup_source_deactivate(ws);
-		return;
-	}
-
 	if (WARN_ONCE(wakeup_source_not_registered(ws),
 			"unregistered wakeup source\n"))
 		return;
@@ -626,7 +610,6 @@ void pm_stay_awake(struct device *dev)
 }
 EXPORT_SYMBOL_GPL(pm_stay_awake);
 
-/***************** FIX FOR BATTERY DRAINS *********************/
 #ifdef CONFIG_PM_AUTOSLEEP
 static void update_prevent_sleep_time(struct wakeup_source *ws, ktime_t now)
 {
@@ -668,6 +651,7 @@ static void wakeup_source_deactivate(struct wakeup_source *ws)
 	}
 
 	ws->active = false;
+
 	now = ktime_get();
 	duration = ktime_sub(now, ws->last_time);
 	ws->total_time = ktime_add(ws->total_time, duration);
@@ -680,18 +664,19 @@ static void wakeup_source_deactivate(struct wakeup_source *ws)
 
 	if (ws->autosleep_enabled)
 		update_prevent_sleep_time(ws, now);
+
 	/*
 	 * Increment the counter of registered wakeup events and decrement the
 	 * couter of wakeup events in progress simultaneously.
 	 */
 	cec = atomic_add_return(MAX_IN_PROGRESS, &combined_event_count);
 	trace_wakeup_source_deactivate(ws->name, cec);
-	split_counters(&cnt, &inpr);
 
+	split_counters(&cnt, &inpr);
 	if (!inpr && waitqueue_active(&wakeup_count_wait_queue))
 		wake_up(&wakeup_count_wait_queue);
 }
-/***************** END FIX FOR BATTERY DRAINS *****************/
+
 /**
  * __pm_relax - Notify the PM core that processing of a wakeup event has ended.
  * @ws: Wakeup source object associated with the source of the event.

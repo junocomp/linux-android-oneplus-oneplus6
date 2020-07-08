@@ -881,4 +881,4 @@ CONFIG_XZ_DEC_BCJ=y
 # CONFIG_ANBOX_BINDER_IPC_32BIT is not set
 
 # Fix can't wake up after sleep
-CONFIG_PM_AUTOSLEEP=y 
+#CONFIG_PM_AUTOSLEEP=y 

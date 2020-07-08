@@ -526,6 +526,11 @@ static void wakeup_source_activate(struct wakeup_source *ws)
 {
 	unsigned int cec;
 
+	if (!strncmp(ws->name, "IPA_WS", 6)) {
+		if (ws->active)
+			return;
+	}
+
 	if (WARN_ONCE(wakeup_source_not_registered(ws),
 			"unregistered wakeup source\n"))
 		return;
@@ -629,7 +634,7 @@ static inline void update_prevent_sleep_time(struct wakeup_source *ws,
  * become inactive by decrementing the counter of wakeup events being processed
  * and incrementing the counter of registered wakeup events.
  */
-static void wakeup_source_deactivate(struct wakeup_source *ws)
+void wakeup_source_deactivate(struct wakeup_source *ws)
 {
 	unsigned int cnt, inpr, cec;
 	ktime_t duration;

@@ -1,4 +1,7 @@
-        Linux kernel release 4.x <http://kernel.org/>
+[![Build Status](https://oldpc.mrcyjanek.net:443/ci/job/android_kernel_oneplus_sdm845/badge/icon)](https://oldpc.mrcyjanek.net:443/ci/job/android_kernel_oneplus_sdm845/)
+
+```
+          Linux kernel release 4.x <http://kernel.org/>
 
 These are the release notes for Linux version 4.  Read them carefully,
 as they tell you what this is all about, explain how to install the
@@ -396,5 +399,4 @@ IF SOMETHING GOES WRONG:
    with the EIP value.)
 
    gdb'ing a non-running kernel currently fails because gdb (wrongly)
-   disregards the starting offset for which the kernel is compiled.
-
+   disregards the starting offset for which the kernel is compiled.```

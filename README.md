@@ -1,4 +1,4 @@
-[![Build Status](https://oldpc.mrcyjanek.net:443/ci/job/android_kernel_oneplus_sdm845/badge/icon)](https://oldpc.mrcyjanek.net:443/ci/job/android_kernel_oneplus_sdm845/)
+[![Build Status](https://mrcyjanek.net/ci/job/ubports-oneplus6-android_kernel_oneplus_sdm845/badge/icon)](https://mrcyjanek.net/ci/job/ubports-oneplus6-android_kernel_oneplus_sdm845/)
 
 ```
           Linux kernel release 4.x <http://kernel.org/>

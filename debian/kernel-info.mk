@@ -8,7 +8,7 @@
 VARIANT = android
 
 # Kernel base version
-KERNEL_BASE_VERSION = 4.9-112
+KERNEL_BASE_VERSION = 4.9-113
 
 # The kernel cmdline to use
 KERNEL_BOOTIMAGE_CMDLINE = androidboot.hardware=qcom androidboot.console=ttyMSM0 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 ehci-hcd.park=3 lpm_levels.sleep_disabled=1 service_locator.enable=1 swiotlb=2048 androidboot.configfs=true androidboot.usbcontroller=a600000.dwc3 firmware_class.path=/vendor/firmware_mnt/image loop.max_part=7 console=tty0 apparmor=1 security=apparmor droidian.lvm.prefer
@@ -152,7 +152,7 @@ FLASH_INFO_MODEL =
 FLASH_INFO_CPU = Qualcomm Technologies, Inc SDM845
 
 # Space-separated list of supported device ids as reported by fastboot
-FLASH_INFO_DEVICE_IDS = oneplus6 oneplus6t
+FLASH_INFO_DEVICE_IDS = sdm845
 
 ########################################################################
 # Kernel build settings
